@@ -8,7 +8,7 @@ import LoginForm from "./components/forms/Login";
 const App = () => (
   <div className="container">
     <RegisterForm />
-    <LoginForm />
+    <LoginForm callBackIfLoggedIn={() => {console.log("User Already logged in"); alert("User already logged in")}} />
   </div>
 );
 ReactDOM.render(<App />, document.getElementById("app"));
