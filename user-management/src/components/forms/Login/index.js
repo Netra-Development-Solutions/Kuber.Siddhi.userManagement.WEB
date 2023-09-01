@@ -8,13 +8,14 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { get, post } from "../../../utils/apiHelper";
 
-export default function LoginForm() {
+export default function LoginForm({ callBackIfLoggedIn }) {
 
     React.useEffect(() => {
         const token = localStorage.getItem('userauthdetails');
         if (token) {
             // get('http://localhost:4000/USER/verify', token)
-            alert('You are already logged in');
+            
+            callBackIfLoggedIn();
         }
     }, []);
     const yupValidationSchema = yup.object({
@@ -39,8 +40,10 @@ export default function LoginForm() {
                 .then((response) => {
                     console.log(response);
                     // store token in local storage
-                    localStorage.setItem('userauthdetails', response?.data?.data);
+                    localStorage.setItem('userauthdetails', JSON.stringify(response?.data?.data));
                     actions.setSubmitting(false);
+
+                    callBackIfLoggedIn();
                 }
                 ).catch((error) => {
                     console.log(error);
