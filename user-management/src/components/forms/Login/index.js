@@ -11,10 +11,11 @@ import { get, post } from "../../../utils/apiHelper";
 export default function LoginForm({ callBackIfLoggedIn }) {
 
     React.useEffect(() => {
-        const token = localStorage.getItem('userauthdetails');
+        var userDetails = localStorage.getItem("userauthdetails") ? JSON.parse(localStorage.getItem("userauthdetails")) : null;
+        
+        const token = userDetails?.token;
+
         if (token) {
-            // get('http://localhost:4000/USER/verify', token)
-            
             callBackIfLoggedIn();
         }
     }, []);
@@ -39,6 +40,10 @@ export default function LoginForm({ callBackIfLoggedIn }) {
             post('http://localhost:4000/USER/login', null, values)
                 .then((response) => {
                     console.log(response);
+                    if (response?.data?.data) {
+                        // set token expiry to 1 day
+                        response.data.data.tokenExpiry = new Date().getTime() + 86400000;
+                    }
                     // store token in local storage
                     localStorage.setItem('userauthdetails', JSON.stringify(response?.data?.data));
                     actions.setSubmitting(false);
