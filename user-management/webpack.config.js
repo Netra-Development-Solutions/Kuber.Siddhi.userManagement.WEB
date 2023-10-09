@@ -5,7 +5,8 @@ const deps = require("./package.json").dependencies;
 module.exports = (_, argv) => ({
   output: {
     publicPath: "https://test-blob.s3.ap-south-1.amazonaws.com/plugins/user-management/1.0.1/",
-    chunkFilename: "[id].[contenthash].js",
+    // chunkFilename: "[id].[contenthash].js",
+    chunkFilename: "[name].[id].[contenthash].js",
   },
 
   resolve: {
