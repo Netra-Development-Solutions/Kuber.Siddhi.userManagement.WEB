@@ -11,6 +11,10 @@ module.exports = (_, argv) => ({
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
   },
 
+  optimization: {
+    chunkIds: "named",
+  },
+
   devServer: {
     port: 3001,
     historyApiFallback: true,
