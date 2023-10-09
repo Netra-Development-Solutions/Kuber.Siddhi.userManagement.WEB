@@ -41,7 +41,7 @@ pipeline {
         
         stage("Install npm packages") {
             steps {
-                dir("user-management") {
+                dir("${plugin_name}") {
                     echo "Installing npm dependencies"
                     bat "npm install"
                 }
@@ -57,7 +57,7 @@ pipeline {
         
         stage("Building plugin") {
             steps {
-                dir("user-management") {
+                dir("${plugin_name}") {
                     echo "Building plugin"
                     bat "npm run build"
                 }
